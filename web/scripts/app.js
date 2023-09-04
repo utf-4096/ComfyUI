@@ -1,6 +1,6 @@
 import { ComfyLogging } from "./logging.js";
 import { ComfyWidgets } from "./widgets.js";
-import { ComfyUI, $el } from "./ui.js";
+import { ComfyUI, $el, ComfyMessageDialog } from "./ui.js";
 import { api } from "./api.js";
 import { defaultGraph } from "./defaultGraph.js";
 import { getPngMetadata, getWebpMetadata, importA1111, getLatentMetadata } from "./pnginfo.js";
@@ -1905,15 +1905,20 @@ export class ComfyApp {
 			return error.toString()
 		}
 		else if (error.response) {
-			let message = error.response.error.message;
-			if (error.response.error.details)
-			message += ": " + error.response.error.details;
-			for (const [nodeID, nodeError] of Object.entries(error.response.node_errors)) {
-			message += "\n" + nodeError.class_type + ":"
-				for (const errorReason of nodeError.errors) {
-					message += "\n    - " + errorReason.message + ": " + errorReason.details
-				}
+			let message = `<b>${error.response.error.message}</b>`;
+			if (error.response.error.details) {
+				message += `: ${error.response.error.details}`;
 			}
+
+			for (const [nodeID, nodeError] of Object.entries(error.response.node_errors)) {
+				message += `\n${nodeError.class_type}`;
+				for (const errorReason of nodeError.errors) {
+					message += `\n\t• ${errorReason.message}: ${errorReason.details}`
+				}
+
+				message += "\n";
+			}
+
 			return message
 		}
 		return "(unknown error)"
@@ -1957,7 +1962,7 @@ export class ComfyApp {
 						}
 					} catch (error) {
 						const formattedError = this.#formatPromptError(error)
-						this.ui.dialog.show(formattedError);
+						this.ui.message.show(ComfyMessageDialog.ERROR, formattedError);
 						if (error.response) {
 							this.lastNodeErrors = error.response.node_errors;
 							this.canvas.draw(true, true);

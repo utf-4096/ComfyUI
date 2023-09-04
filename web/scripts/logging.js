@@ -285,19 +285,7 @@ export class ComfyLogging {
 							onchange: (event) => {
 								setter((this.enabled = event.target.checked));
 							},
-						}),
-						$el("button", {
-							textContent: "View Logs",
-							onclick: () => {
-								this.app.ui.settings.element.close();
-								this.dialog.show();
-							},
-							style: {
-								fontSize: "14px",
-								display: "block",
-								marginTop: "5px",
-							},
-						}),
+						})
 					]),
 				]);
 			},

@@ -23,7 +23,7 @@ const colorPalettes = {
 				"TAESD": "#DCC274", // cheesecake
 			},
 			"litegraph_base": {
-				"BACKGROUND_IMAGE": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQBJREFUeNrs1rEKwjAUhlETUkj3vP9rdmr1Ysammk2w5wdxuLgcMHyptfawuZX4pJSWZTnfnu/lnIe/jNNxHHGNn//HNbbv+4dr6V+11uF527arU7+u63qfa/bnmh8sWLBgwYJlqRf8MEptXPBXJXa37BSl3ixYsGDBMliwFLyCV/DeLIMFCxYsWLBMwSt4Be/NggXLYMGCBUvBK3iNruC9WbBgwYJlsGApeAWv4L1ZBgsWLFiwYJmCV/AK3psFC5bBggULloJX8BpdwXuzYMGCBctgwVLwCl7Be7MMFixYsGDBsu8FH1FaSmExVfAxBa/gvVmwYMGCZbBg/W4vAQYA5tRF9QYlv/QAAAAASUVORK5CYII=",
+				"BACKGROUND_IMAGE": "../img/grid.png",
 				"CLEAR_BACKGROUND_COLOR": "#222",
 				"NODE_TITLE_COLOR": "#999",
 				"NODE_SELECTED_TITLE_COLOR": "#FFF",
@@ -50,6 +50,7 @@ const colorPalettes = {
 			"comfy_base": {
 				"fg-color": "#fff",
 				"bg-color": "#202020",
+				"bg-color-hover": "#222222",
 				"comfy-menu-bg": "#353535",
 				"comfy-input-bg": "#222",
 				"input-text": "#ddd",
@@ -80,7 +81,7 @@ const colorPalettes = {
 				"VAE": "#FF7043", // deep orange
 			},
 			"litegraph_base": {
-				"BACKGROUND_IMAGE": "data:image/gif;base64,R0lGODlhZABkALMAAAAAAP///+vr6+rq6ujo6Ofn5+bm5uXl5d3d3f///wAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAkALAAAAABkAGQAAAT/UMhJq7046827HkcoHkYxjgZhnGG6si5LqnIM0/fL4qwwIMAg0CAsEovBIxKhRDaNy2GUOX0KfVFrssrNdpdaqTeKBX+dZ+jYvEaTf+y4W66mC8PUdrE879f9d2mBeoNLfH+IhYBbhIx2jkiHiomQlGKPl4uZe3CaeZifnnijgkESBqipqqusra6vsLGys62SlZO4t7qbuby7CLa+wqGWxL3Gv3jByMOkjc2lw8vOoNSi0czAncXW3Njdx9Pf48/Z4Kbbx+fQ5evZ4u3k1fKR6cn03vHlp7T9/v8A/8Gbp4+gwXoFryXMB2qgwoMMHyKEqA5fxX322FG8tzBcRnMW/zlulPbRncmQGidKjMjyYsOSKEF2FBlJQMCbOHP6c9iSZs+UnGYCdbnSo1CZI5F64kn0p1KnTH02nSoV3dGTV7FFHVqVq1dtWcMmVQZTbNGu72zqXMuW7danVL+6e4t1bEy6MeueBYLXrNO5Ze36jQtWsOG97wIj1vt3St/DjTEORss4nNq2mDP3e7w4r1bFkSET5hy6s2TRlD2/mSxXtSHQhCunXo26NevCpmvD/UU6tuullzULH76q92zdZG/Ltv1a+W+osI/nRmyc+fRi1Xdbh+68+0vv10dH3+77KD/i6IdnX669/frn5Zsjh4/2PXju8+8bzc9/6fj27LFnX11/+IUnXWl7BJfegm79FyB9JOl3oHgSklefgxAC+FmFGpqHIYcCfkhgfCohSKKJVo044YUMttggiBkmp6KFXw1oII24oYhjiDByaKOOHcp3Y5BD/njikSkO+eBREQAAOw==",
+				"BACKGROUND_IMAGE": "../img/grid.png",
 				"CLEAR_BACKGROUND_COLOR": "lightgray",
 				"NODE_TITLE_COLOR": "#222",
 				"NODE_SELECTED_TITLE_COLOR": "#000",
@@ -107,8 +108,9 @@ const colorPalettes = {
 			"comfy_base": {
 				"fg-color": "#222",
 				"bg-color": "#DDD",
+				"bg-color-hover": "#DFDFDF",
 				"comfy-menu-bg": "#F5F5F5",
-				"comfy-input-bg": "#C9C9C9",
+				"comfy-input-bg": "#DFDFDF",
 				"input-text": "#222",
 				"descrip-text": "#444",
 				"drag-text": "#555",
@@ -138,6 +140,8 @@ const colorPalettes = {
 				"VAE": "#facfad", // light pink-orange
 			},
 			"litegraph_base": {
+				"BACKGROUND_IMAGE": "../img/grid.png",
+				"CLEAR_BACKGROUND_COLOR": "#023",
 				"NODE_TITLE_COLOR": "#fdf6e3", // Base3
 				"NODE_SELECTED_TITLE_COLOR": "#A9D400",
 				"NODE_TEXT_SIZE": 14,
@@ -163,6 +167,7 @@ const colorPalettes = {
 			"comfy_base": {
 				"fg-color": "#fdf6e3", // Base3
 				"bg-color": "#002b36", // Base03
+				"bg-color-hover": "#002b36",
 				"comfy-menu-bg": "#073642", // Base02
 				"comfy-input-bg": "#002b36", // Base03
 				"input-text": "#93a1a1", // Base1
@@ -550,6 +555,7 @@ app.registerExtension({
 				if (colorPalette.colors.node_slot) {
 					Object.assign(app.canvas.default_connection_color_byType, colorPalette.colors.node_slot);
 					Object.assign(LGraphCanvas.link_type_colors, colorPalette.colors.node_slot);
+					Object.assign(LGraphCanvas.node_colors, colorPalette.colors.node_colors);
 				}
 				// Sets the colors of the LiteGraph objects
 				if (colorPalette.colors.litegraph_base) {

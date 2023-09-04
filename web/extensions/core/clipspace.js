@@ -1,5 +1,5 @@
 import { app } from "../../scripts/app.js";
-import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { ComfyDialog, $el, ComfyMessageDialog } from "../../scripts/ui.js";
 import { ComfyApp } from "../../scripts/app.js";
 
 export class ClipspaceDialog extends ComfyDialog {
@@ -160,7 +160,7 @@ app.registerExtension({
 					ClipspaceDialog.instance.show();
 				}
 				else
-					app.ui.dialog.show("Clipspace is Empty!");
+					app.ui.message.show(ComfyMessageDialog.ERROR, "Clipspace is empty!");
 			};
 	}
 });
