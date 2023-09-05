@@ -387,6 +387,78 @@ const colorPalettes = {
 			  "tr-odd-bg-color": "#13171d"
 			}
 		},
+	},
+	"catppuccin_frappe": {
+		"id": "catppuccin_frappe",
+		"name": "Catppuccin Frappé",
+		"colors": {
+			"node_slot": {
+				"CLIP": "#ef9f76",
+				"CLIP_VISION": "#99d1db",
+				"CLIP_VISION_OUTPUT": "#ea999c",
+				"CONDITIONING": "#ef9f76",
+				"CONTROL_NET": "#a6d189",
+				"IMAGE": "#8caaee",
+				"LATENT": "#f4b8e4",
+				"MASK": "#a6d189",
+				"MODEL": " #ca9ee6",
+				"STYLE_MODEL": "#a6d189",
+				"VAE": "#e78284",
+				"TAESD": "#ef9f76"
+			},
+			"litegraph_base": {
+				"BACKGROUND_IMAGE": "../img/grid.png",
+				"CLEAR_BACKGROUND_COLOR": "#303446",
+				"NODE_TITLE_COLOR": "#fff",
+				"NODE_SELECTED_TITLE_COLOR": "#c6d0f5",
+				"NODE_TEXT_SIZE": 14,
+				"NODE_TEXT_COLOR": "#c6d0f5",
+				"NODE_SUBTEXT_SIZE": 12,
+				"NODE_DEFAULT_COLOR": " #232634",
+				"NODE_DEFAULT_BGCOLOR": "#292c3c",
+				"NODE_DEFAULT_BOXCOLOR": "#babbf1",
+				"NODE_DEFAULT_SHAPE": "box",
+				"NODE_BOX_OUTLINE_COLOR": "#FFF",
+				"DEFAULT_SHADOW_COLOR": "#0000",
+				"DEFAULT_GROUP_FONT": 24,
+				"WIDGET_BGCOLOR": "#0000",
+				"WIDGET_OUTLINE_COLOR": "#0000",
+				"WIDGET_TEXT_COLOR": "#c6d0f5",
+				"WIDGET_SECONDARY_TEXT_COLOR": "#c6d0f5",
+
+				"LINK_COLOR": "#81c8be",
+				"EVENT_LINK_COLOR": "#A86",
+				"CONNECTING_LINK_COLOR": "#AFA"
+			},
+
+			"comfy_base": {
+				"fg-color": "#c6d0f5",
+				"bg-color": "#303446",
+				"comfy-menu-bg": "#303446",
+				"bg-color-hover": "#8caaee",
+				"fg-color-hover": "#fff",
+				"comfy-input-bg": "#0003",
+				"input-text": "#c6d0f5",
+				"descrip-text": "#a5adce",
+				"drag-text": "#ccc",
+				"error-text": "#e78284",
+				"border-color": "#fff2",
+				"tr-even-bg-color": "#232634",
+				"tr-odd-bg-color": "#292c3c"
+			},
+
+			"node_colors": {
+					"red":       { "color": "hsla(347, 87%, 44%, 50%)", "bgcolor": "", "groupcolor": "#A88" },
+					"brown":     { "color": "hsla(355, 76%, 59%, 50%)", "bgcolor": "", "groupcolor": "#b06634" },
+					"green":     { "color": "hsla(109, 58%, 40%, 50%)", "bgcolor": "", "groupcolor": "#8A8" },
+					"blue":      { "color": "hsla(220, 91%, 54%, 50%)", "bgcolor": "", "groupcolor": "#88A" },
+					"pale_blue": { "color": "hsla(231, 97%, 72%, 50%)", "bgcolor": "", "groupcolor": "#3f789e" },
+					"cyan":      { "color": "hsla(197, 97%, 46%, 50%)", "bgcolor": "", "groupcolor": "#8AA" },
+					"purple":    { "color": "hsla(266, 85%, 58%, 50%)", "bgcolor": "", "groupcolor": "#a1309b" },
+					"yellow":    { "color": "hsla(035, 77%, 49%, 50%)",  "bgcolor": "", "groupcolor": "#b58b2a" },
+					"black":     { "color": "hsla(234, 16%, 35%, 50%)", "bgcolor": "", "groupcolor": "#444" }
+			}
+		}
 	}
 };
 
