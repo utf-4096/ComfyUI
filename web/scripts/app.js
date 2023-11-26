@@ -1169,8 +1169,14 @@ export class ComfyApp {
 		});
 
 		api.addEventListener("progress", ({ detail }) => {
+			this.ui.spinnerNodeProgress.textContent = `${detail.value}/${detail.max}` ;
 			this.progress = detail;
 			this.graph.setDirtyCanvas(true, false);
+
+			const node = this.graph._nodes.find(o => o.id == this.runningNodeId);
+			if (node) {
+				this.ui.spinnerNodeName.textContent = node.type;
+			}
 		});
 
 		api.addEventListener("executing", ({ detail }) => {
@@ -1178,6 +1184,12 @@ export class ComfyApp {
 			this.runningNodeId = detail;
 			this.graph.setDirtyCanvas(true, false);
 			delete this.nodePreviewImages[this.runningNodeId]
+
+			const node = this.graph._nodes.find(o => o.id == this.runningNodeId);
+			if (node) {
+				this.ui.spinnerNodeName.textContent = node.type;
+				this.ui.spinnerNodeProgress.textContent = '';
+			}
 		});
 
 		api.addEventListener("executed", ({ detail }) => {

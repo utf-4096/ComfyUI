@@ -741,6 +741,15 @@ export class ComfyUI {
 				}
 			}, [$icon("file"), "Load Default"]),
 
+			$el("div.spinner", [
+				$el("span.spinner-node-name", {
+					$: (b) => (this.spinnerNodeName = b),
+				}),
+				$el("span.spinner-node-progress", {
+					$: (b) => (this.spinnerNodeProgress = b),
+				}),
+			]),
+
 			$el("div.extra-buttons", [
 				$el("button.comfy-settings-btn", {
 					dataset: { tooltip: "Configure ComfyUI" },
@@ -799,6 +808,14 @@ export class ComfyUI {
 	setStatus(status) {
 		this.queueSize.textContent = (status ? status.exec_info.queue_remaining : "ERR");
 		if (status) {
+			if (status.exec_info.queue_remaining > 0) {
+				this.spinnerNodeName.textContent = '';
+				this.spinnerNodeProgress.textContent = '';
+				document.body.classList.add('processing');
+			} else {
+				document.body.classList.remove('processing');
+			}
+
 			if (
 				this.lastQueueSize != 0 &&
 				status.exec_info.queue_remaining == 0 &&
