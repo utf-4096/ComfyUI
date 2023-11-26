@@ -26,6 +26,7 @@ body {
 	overflow: hidden;
 	background-color: var(--bg-color);
 	color: var(--fg-color);
+	font-size: 15px;
 	font-family: Cantarell, Arial, sans-serif;
 }
 
@@ -60,12 +61,12 @@ body {
 
 .comfy-modal {
 	display: none; /* Hidden by default */
+	flex-direction: column;
 	position: fixed; /* Stay in place */
 	z-index: 100; /* Sit on top */
 	top: 50%;
 	left: 50%;
 	max-width: 80vw;
-	max-height: 80vh;
 	transform: translate(-50%, -50%);
 	overflow: hidden;
 	justify-content: center;
@@ -73,6 +74,7 @@ body {
 
 .comfy-modal-content {
 	display: flex;
+	max-height: 80vh;
 	flex-direction: column;
 }
 
@@ -94,7 +96,7 @@ body {
 	text-align: center;
 	top: 0;
 	left: 0;
-	z-index: 999;
+	z-index: 3;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
@@ -126,13 +128,18 @@ body {
 #comfy-settings-dialog button,
 #comfy-settings-dialog input,
 #comfy-settings-dialog input:not([type]),
-#comfy-settings-dialog select {
+#comfy-settings-dialog select,
+.litegraph .graphdialog button,
+.litegraph .graphdialog input,
+.litegraph .graphdialog textarea,
+.litegraph .graphdialog select,
+.litegraph .graphdialog .value {
 	color: var(--input-text);
 	background-color: var(--comfy-input-bg);
 	border-radius: 4px;
-	margin-top: 2px;
 	border: 0;
 	outline: 0;
+	margin: 0;
 	font-size: inherit;
 	padding: 4px;
 	box-sizing: border-box;
@@ -141,7 +148,8 @@ body {
 .comfy-menu .comfy-list button,
 .comfy-modal button,
 #comfy-settings-dialog button,
-#comfy-settings-dialog input[type=button] {
+#comfy-settings-dialog input[type=button],
+.litegraph .graphdialog button {
 	padding: 4px 16px;
 }
 
@@ -149,7 +157,8 @@ body {
 .comfy-modal button:hover:not(:active),
 #comfy-settings-dialog button:hover:not(:active),
 #comfy-settings-dialog input[type=button]:hover:not(:active),
-#comfy-settings-dialog select:hover:not(:active) {
+#comfy-settings-dialog select:hover:not(:active),
+.litegraph .graphdialog button:hover:not(:active) {
 	background-color: var(--border-color);
 }
 
@@ -247,29 +256,25 @@ body {
 
 /* Input popup */
 
-.graphdialog {
+.litegraph .graphdialog {
 	min-height: 1em;
 	background-color: var(--comfy-menu-bg);
 }
 
-.graphdialog .name {
-	font-size: 14px;
+.litegraph .graphdialog .name {
+	font-size: inherit;
 	color: var(--descrip-text);
 }
 
-.graphdialog button {
+.litegraph .graphdialog button {
 	margin-top: unset;
 	vertical-align: unset;
-	height: 1.6em;
-	padding-right: 8px;
+	cursor: default;
 }
 
-.graphdialog input, .graphdialog textarea, .graphdialog select {
-	background-color: var(--comfy-input-bg);
-	border: 2px solid;
-	border-color: var(--border-color);
-	color: var(--input-text);
-	border-radius: 12px 0 0 12px;
+.graphdialog:not(.litesearchbox) input,
+.graphdialog textarea {
+	font-family: monospace;
 }
 
 /* Dialogs */
@@ -293,7 +298,7 @@ dialog::backdrop {
 
 #comfy-settings-dialog table tbody {
 	border-radius: 4px;
-	border: 1px solid var(--tr-odd-bg-color);
+	border: 1px solid var(--border-color);
 	border-bottom: 0;
 	overflow: hidden;
 }
@@ -305,7 +310,6 @@ dialog::backdrop {
 }
 
 #comfy-settings-dialog table tr {
-	background: var(--tr-even-bg-color);
 	font-size: 14px;
 }
 
@@ -322,11 +326,10 @@ dialog::backdrop {
 }
 
 #comfy-settings-dialog table tr:hover {
-	background: var(--tr-odd-bg-color);
 }
 
 #comfy-settings-dialog table tr td {
-	border-bottom: 1px solid var(--tr-odd-bg-color);
+	border-bottom: 1px solid var(--border-color);
 }
 
 #comfy-settings-dialog table tr td label,
@@ -373,47 +376,106 @@ dialog::backdrop {
 	padding: 8px;
 }
 
-/* Context menu */
-
-.litegraph .dialog {
-	z-index: 1;
+/* Dialog */
+.litegraph .dialog .dialog-header .dialog-title {
 	font-family: inherit;
+	color: var(--fg-color);
 }
+
+.litegraph .dialog.settings {
+	z-index: 2;
+	left: 0;
+	top: 33px;
+	height: calc(100% - 20px);
+	font-family: inherit;
+	box-shadow: 4px 0 16px #0005;
+	background: var(--bg-color);
+	color: var(--fg-color);
+	border-radius: 0;
+}
+
+.litegraph .dialog .separator {
+	border-top: none;
+}
+
+.litegraph .dialog .separator,
+.litegraph .dialog .dialog-header {
+	border-bottom-color: var(--border-color);
+}
+
+/* Context menu */
 
 .litegraph .litemenu-entry.has_submenu {
 	position: relative;
 	padding-right: 20px;
 }
 
-.litemenu-entry.has_submenu::after {
-	content: ">";
-	position: absolute;
-	top: 0;
-	right: 2px;
+.litegraph .graphdialog .name,
+.litegraph .litemenu-title {
+	display: block;
+	background: none;
+	text-align: center;
+	font-weight: bold;
+	color: var(--fg-color);
+	margin-bottom: 8px;
+	font-size: 13px;
 }
 
+.litemenu-entry.has_submenu::after {
+	content: "";
+	font-family: monospace;
+	font-size: 16px;
+	position: absolute;
+	top: 9px;
+	right: 7px;
+	width: 6px;
+	height: 6px;
+	border-top: 2px solid currentColor;
+	border-right: 2px solid currentColor;
+	transform: rotate(45deg);
+}
+
+.litegraph .litemenu-entry.has_submenu {
+	border-right: none;
+}
+
+.graphdialog,
 .litegraph.litecontextmenu,
 .litegraph.litecontextmenu.dark {
 	z-index: 9999 !important;
 	background-color: var(--comfy-menu-bg) !important;
-	filter: brightness(95%);
+	padding: 4px;
+	border-radius: 4px !important;
+	box-shadow: 0 0 16px #0005 !important;
+	transform-origin: 0 0;
 }
 
 .litegraph.litecontextmenu .litemenu-entry:hover:not(.disabled):not(.separator) {
-	background-color: var(--comfy-menu-bg) !important;
-	filter: brightness(155%);
-	color: var(--input-text);
+	background-color: var(--bg-color-hover) !important;
+	color: var(--fg-color-hover);
+	transition: none !important;
 }
 
 .litegraph.litecontextmenu .litemenu-entry.submenu,
 .litegraph.litecontextmenu.dark .litemenu-entry.submenu {
-	background-color: var(--comfy-menu-bg) !important;
-	color: var(--input-text);
+	background: none !important;
+	color: var(--fg-color);
+	padding: 6px;
+	border-radius: 4px;
+	cursor: default;
 }
 
 .litegraph.litecontextmenu input {
 	background-color: var(--comfy-input-bg) !important;
 	color: var(--input-text) !important;
+}
+
+.litegraph.litecontextmenu .separator {
+	border: 0;
+	border-radius: 0;
+	border-top: 1px solid var(--border-color);
+	width: calc(100% - 8px);
+	margin: 4px auto;
 }
 
 .comfy-context-menu-filter {
@@ -456,18 +518,50 @@ dialog::backdrop {
 .litegraph.litesearchbox select {
 	background-color: var(--comfy-input-bg) !important;
 	color: var(--input-text);
+	margin-right: 8px !important;
+}
+
+.litegraph.litesearchbox select:last-of-type {
+	margin-right: 0 !important;
+}
+
+.litegraph.litesearchbox label {
+	font-weight: bold;
+	margin-right: 6px;
 }
 
 .litegraph.lite-search-item {
 	color: var(--input-text);
 	background-color: var(--comfy-input-bg);
-	filter: brightness(80%);
-	padding-left: 0.2em;
+	padding: 6px;
+	cursor: default !important;
+}
+
+.litegraph.lite-search-item:hover,
+.litegraph.lite-search-item.selected {
+	background-color: var(--bg-color-hover);
+	color: var(--fg-color-hover);
+}
+
+.litegraph.litesearchbox .helper {
+	margin-top: 4px;
+	border-radius: 4px;
+	max-height: 300px;
 }
 
 .litegraph.lite-search-item.generic_type {
 	color: var(--input-text);
 	filter: brightness(50%);
+}
+
+.litegraph .graphdialog {
+	display: block;
+	padding: 8px;
+	font-size: 13px;
+}
+
+.litegraph .graphdialog button {
+	margin-left: 8px;
 }
 
 .comfy-queue-btn {
