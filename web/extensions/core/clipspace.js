@@ -1,5 +1,6 @@
 import { app } from "../../scripts/app.js";
-import { ComfyDialog, $el, ComfyMessageDialog } from "../../scripts/ui.js";
+import { ComfyDialog, $el } from "../../scripts/ui.js";
+import { ComfyMessageDialog } from "../../scripts/ui/dialog.js";
 import { ComfyApp } from "../../scripts/app.js";
 
 export class ClipspaceDialog extends ComfyDialog {
