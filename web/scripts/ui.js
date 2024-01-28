@@ -460,6 +460,10 @@ export class ComfyUI {
 					id: "autoQueueCheckbox",
 					type: "checkbox",
 					checked: false,
+					onchange: (e) => {
+						this.autoQueueEnabled = e.target.checked;
+						autoQueueModeEl.style.display = this.autoQueueEnabled ? "" : "none";
+					}
 				}),
 			]),
 			autoQueueModeEl,
