@@ -1,5 +1,6 @@
 import { api } from "./api.js";
 import { ComfyDialog as _ComfyDialog, ComfyMessageDialog } from "./ui/dialog.js";
+import { toggleSwitch } from "./ui/toggleSwitch.js";
 import { ComfySettingsDialog } from "./ui/settings.js";
 
 export const ComfyDialog = _ComfyDialog;
@@ -23,6 +24,19 @@ export function $icon(name) {
 	return container;
 }
 
+/**
+ * 
+ * @param { string } tag HTML Element Tag and optional classes e.g. div.class1.class2
+ * @param { string | Element | Element[] | {
+ * 	 parent?: Element,
+ *   $?: (el: Element) => void, 
+ *   dataset?: DOMStringMap,
+ *   style?: CSSStyleDeclaration,
+ * 	 for?: string
+ * } | undefined } propsOrChildren 
+ * @param { Element[] | undefined } [children]
+ * @returns 
+ */
 export function $el(tag, propsOrChildren, children) {
 	const split = tag.split(".");
 	const element = document.createElement(split.shift());
@@ -31,6 +45,11 @@ export function $el(tag, propsOrChildren, children) {
 	}
 
 	if (propsOrChildren) {
+		if (typeof propsOrChildren === "string") {
+			propsOrChildren = { textContent: propsOrChildren };
+		} else if (propsOrChildren instanceof Element) {
+			propsOrChildren = [propsOrChildren];
+		}
 		if (Array.isArray(propsOrChildren)) {
 			element.append(...propsOrChildren);
 		} else {
@@ -54,7 +73,7 @@ export function $el(tag, propsOrChildren, children) {
 
 			Object.assign(element, propsOrChildren);
 			if (children) {
-				element.append(...children);
+				element.append(...(children instanceof Array ? children : [children]));
 			}
 
 			if (parent) {
@@ -369,6 +388,31 @@ export class ComfyUI {
 			},
 		});
 
+		const autoQueueModeEl = toggleSwitch(
+			"autoQueueMode",
+			[
+				{ text: "instant", tooltip: "A new prompt will be queued as soon as the queue reaches 0" },
+				{ text: "change", tooltip: "A new prompt will be queued when the queue is at 0 and the graph is/has changed" },
+			],
+			{
+				onChange: (value) => {
+					this.autoQueueMode = value.item.value;
+				},
+			}
+		);
+		autoQueueModeEl.style.display = "none";
+
+		api.addEventListener("graphChanged", () => {
+			if (this.autoQueueMode === "change" && this.autoQueueEnabled === true) {
+				if (this.lastQueueSize === 0) {
+					this.graphHasChanged = false;
+					app.queuePrompt(0, this.batchCount);
+				} else {
+					this.graphHasChanged = true;
+				}
+			}
+		});
+
 		this.menuContainer = $el("div.comfy-menu", {parent: document.body}, [
 			$el("div.comfy-queue-btn", [
 				$el("button", {
@@ -418,6 +462,7 @@ export class ComfyUI {
 					checked: false,
 				}),
 			]),
+			autoQueueModeEl,
 			$el("button", {
 				id: "comfy-save-button",
 				dataset: { tooltip: "Save the current workflow" },
@@ -593,10 +638,13 @@ export class ComfyUI {
 			if (
 				this.lastQueueSize != 0 &&
 				status.exec_info.queue_remaining == 0 &&
-				document.getElementById("autoQueueCheckbox").checked &&
-				! app.lastExecutionError
+				this.autoQueueEnabled &&
+				(this.autoQueueMode === "instant" || this.graphHasChanged) &&
+				!app.lastExecutionError
 			) {
 				app.queuePrompt(0, this.batchCount);
+				status.exec_info.queue_remaining += this.batchCount;
+				this.graphHasChanged = false;
 			}
 			this.lastQueueSize = status.exec_info.queue_remaining;
 		}
