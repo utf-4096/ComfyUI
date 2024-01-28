@@ -506,31 +506,33 @@ dialog::backdrop {
 .comfy-toggle-switch {
 	border-width: 2px;
 	display: flex;
+	gap: 6px;
 	background-color: var(--comfy-input-bg);
-	margin: 2px 0;
 	white-space: nowrap;
 }
 
 .comfy-toggle-switch label {
-	padding: 2px 0px 3px 6px;
+	user-select: none;
+	padding: 2px 4px;
 	flex: auto;
-	border-radius: 8px;
+	border-radius: 4px;
     align-items: center;
     display: flex;
     justify-content: center;
 }
 
-.comfy-toggle-switch label:first-child {
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-}
-.comfy-toggle-switch label:last-child {
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
+.comfy-toggle-switch input[type=radio] {
+	display: none;
 }
 
+.comfy-toggle-switch label:hover:not(.comfy-toggle-selected) {
+	opacity: 0.8;
+}
+
+.comfy-toggle-switch label:hover,
 .comfy-toggle-switch .comfy-toggle-selected {
-	background-color: var(--comfy-menu-bg);
+	background-color: var(--bg-color-hover);
+	color: var(--fg-color-hover);
 }
 
 #extraOptions {
