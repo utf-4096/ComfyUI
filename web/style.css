@@ -375,14 +375,11 @@ dialog::backdrop {
 
 .comfy-table caption .comfy-btn {
 	position: absolute;
-	top: -2px;
+	top: 0;
 	right: 0;
-	bottom: 0;
 	cursor: pointer;
 	border: none;
-	height: 100%;
 	border-radius: 0;
-	aspect-ratio: 1/1;
 	user-select: none;
 	font-size: 20px;
 }
