@@ -91,6 +91,24 @@ body {
 	margin: 3px 3px 3px 4px;
 }
 
+.comfy-menu-hamburger {
+	position: fixed;
+	top: 10px;
+	z-index: 9999;
+	right: 10px;
+	width: 30px;
+	display: none;
+	gap: 8px;
+	flex-direction: column;
+	cursor: pointer;
+}
+.comfy-menu-hamburger div {
+	height: 3px;
+	width: 100%;
+	border-radius: 20px;
+	background-color: white;
+}
+
 .comfy-menu {
 	position: absolute;
 	text-align: center;
@@ -156,12 +174,6 @@ body {
 #comfy-settings-dialog select:hover:not(:active),
 .litegraph .graphdialog button:hover:not(:active) {
 	background-color: var(--border-color);
-}
-
-.comfy-menu span.drag-handle {
-	position: absolute;
-	top: 0;
-	left: 0;
 }
 
 span.drag-handle {
@@ -358,6 +370,25 @@ dialog::backdrop {
 	font-weight: bold;
 	padding: 8px;
 	text-align: center;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.comfy-table caption .comfy-btn {
+	position: absolute;
+	top: -2px;
+	right: 0;
+	bottom: 0;
+	cursor: pointer;
+	border: none;
+	height: 100%;
+	border-radius: 0;
+	aspect-ratio: 1/1;
+	user-select: none;
+	font-size: 20px;
+}
+
+.comfy-table caption .comfy-btn:focus {
+	outline: none;
 }
 
 .comfy-table tr:nth-child(even) {
@@ -589,6 +620,25 @@ dialog::backdrop {
 .litegraph.lite-search-item.generic_type {
 	color: var(--input-text);
 	filter: brightness(50%);
+	will-change: transform;
+}
+
+@media only screen and (max-width: 450px) {
+	#comfy-settings-dialog .comfy-table tbody {
+		display: grid;
+	}
+	#comfy-settings-dialog .comfy-table tr {
+		display: grid;
+	}
+	#comfy-settings-dialog tr > td:first-child {
+		text-align: center;
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+	#comfy-settings-dialog tr > td:not(:first-child) {
+		text-align: center;
+		border-top: none;
+	}
 }
 
 .litegraph .graphdialog {
