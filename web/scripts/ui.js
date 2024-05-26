@@ -554,6 +554,7 @@ export class ComfyUI {
 					if (!confirmClear.value || confirm("Clear workflow?")) {
 						app.clean();
 						app.graph.clear();
+						app.resetView();
 					}
 				}
 			}, [$icon("trash"), "Clear"]),
@@ -562,6 +563,7 @@ export class ComfyUI {
 				dataset: { tooltip: "Load the default workflow" },
 				onclick: async () => {
 					if (!confirmClear.value || confirm("Load default workflow?")) {
+						app.resetView();
 						await app.loadGraphData()
 					}
 				}
@@ -605,7 +607,12 @@ export class ComfyUI {
 						this.history.toggle();
 					},
 				}, [$icon("history"), "History"]),
-			])
+			]),
+			$el("button", {
+				id: "comfy-reset-view-button", textContent: "Reset View", onclick: async () => {
+					app.resetView();
+				}
+			}),
 		]);
 
 		this.queue.element.classList.add("menu-list");
